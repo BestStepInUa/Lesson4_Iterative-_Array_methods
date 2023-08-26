@@ -82,37 +82,82 @@
 
 //* Виконаємо рефакторинг функції таким чином, щоб вона приймала два колбеки onAvailable і onNotAvailable, і викликала їх за умовою.
 
-function processCall(recipient, onAvailable, onNotAvailable) {
-  // Імітуємо доступність абонента випадковим числом
-  const isRecipientAvailable = Math.random() > 0.5;
+// function processCall(recipient, onAvailable, onNotAvailable) {
+//   // Імітуємо доступність абонента випадковим числом
+//   const isRecipientAvailable = Math.random() > 0.5;
 
-  if (!isRecipientAvailable) {
-    onNotAvailable(recipient);
-    return;
-  }
+//   if (!isRecipientAvailable) {
+//     onNotAvailable(recipient);
+//     return;
+//   }
 
-  onAvailable(recipient);
-}
+//   onAvailable(recipient);
+// }
 
-function takeCall(name) {
-  console.log(`З'єднуємо з ${name}, очікуйте...`);
-  // Логіка прийняття дзвінка
-}
+// function takeCall(name) {
+//   console.log(`З'єднуємо з ${name}, очікуйте...`);
+//   // Логіка прийняття дзвінка
+// }
 
-function activateAnsweringMachine(name) {
-  console.log(`Абонент ${name} недоступний, залиште повідомлення.`);
-  // Логіка активації автовідповідача
-}
+// function activateAnsweringMachine(name) {
+//   console.log(`Абонент ${name} недоступний, залиште повідомлення.`);
+//   // Логіка активації автовідповідача
+// }
 
-function leaveHoloMessage(name) {
-  console.log(`Абонент ${name} недоступний, записуємо голограму.`);
-  // Логіка запису голограми
-}
+// function leaveHoloMessage(name) {
+//   console.log(`Абонент ${name} недоступний, записуємо голограму.`);
+//   // Логіка запису голограми
+// }
 
-processCall("Манго", takeCall, activateAnsweringMachine);
-processCall("Полі", takeCall, leaveHoloMessage);
+// processCall("Манго", takeCall, activateAnsweringMachine);
+// processCall("Полі", takeCall, leaveHoloMessage);
 
 //? Колбеки застосовуються для обробки дій користувача на сторінці, на момент обробки запитів на сервер, виконання заздалегідь невідомих функцій тощо.
 //? У цьому і полягає їх суть - це функції, призначені для відкладеного виконання.
 
 //! Абстрагування повторення
+//* Абстракція - приховування деталей реалізації. Дозволяє думати про задачі на вищому(абстрактному) рівні.
+//* Функції - це хороший спосіб побудови абстракцій.
+
+// Наприклад, скрипт виконує якусь дію певну кількість разів. З цією метою можна написати цикл for.
+// for (let i = 0; i < 10; i += 1) {
+//   console.log(i);
+// }
+
+// Чи можемо ми абстрагувати «робити щось N разів» у якості функції? - так, напишемо функцію, яка викликає console.log() N разів.
+// function repeatLog(n) {
+//   for (let i = 0; i < n; i += 1) {
+//     console.log(i);
+//   }
+// }
+
+// repeatLog(5);
+
+// Але що робити, якщо ми хочемо виконати щось, крім логування чисел ?
+// Оскільки «робити щось» можна уявити функцією, а функції - це просто значення, ми можемо передати дію як аргумент.
+
+function printValue(value) {
+  console.log(value);
+}
+
+function prettyPrint(value) {
+  console.log("Logging value: ", value);
+}
+
+function repeat(n, action) {
+  for (let i = 0; i < n; i += 1) {
+    action(i);
+  }
+}
+
+// Передаємо printValue як callback-функцію
+repeat(3, printValue);
+// 0
+// 1
+// 2
+
+// Передаємо prettyPrint як callback-функцію
+repeat(3, prettyPrint);
+// Logging value: 0
+// Logging value: 1
+// Logging value: 2
