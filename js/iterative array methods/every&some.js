@@ -60,6 +60,8 @@ const fruits = [
 
 // every поверне true тільки, якщо усіх фруктів буде більше 0 штук - ми розуміємо, що якихось фруктів наразі немає в наявності
 const allAvailable = fruits.every(fruit => fruit.amount > 0); // false
+console.log(allAvailable);
 
 // some поверне true, якщо хоча б одного фрукту буде більше 0 штук - ми розуміємо,  що якісь фрукти в наявності є
 const anyAvailable = fruits.some(fruits => fruits.amount > 0); // true
+console.log(anyAvailable);
