@@ -136,28 +136,65 @@
 // Але що робити, якщо ми хочемо виконати щось, крім логування чисел ?
 // Оскільки «робити щось» можна уявити функцією, а функції - це просто значення, ми можемо передати дію як аргумент.
 
-function printValue(value) {
-  console.log(value);
-}
+// function printValue(value) {
+//   console.log(value);
+// }
 
-function prettyPrint(value) {
-  console.log("Logging value: ", value);
-}
+// function prettyPrint(value) {
+//   console.log("Logging value: ", value);
+// }
 
-function repeat(n, action) {
-  for (let i = 0; i < n; i += 1) {
-    action(i);
-  }
-}
+// function repeat(n, action) {
+//   for (let i = 0; i < n; i += 1) {
+//     action(i);
+//   }
+// }
 
 // Передаємо printValue як callback-функцію
-repeat(3, printValue);
-// 0
-// 1
-// 2
+// repeat(3, printValue);
+// // 0
+// // 1
+// // 2
 
 // Передаємо prettyPrint як callback-функцію
-repeat(3, prettyPrint);
-// Logging value: 0
-// Logging value: 1
-// Logging value: 2
+// repeat(3, prettyPrint);
+// // Logging value: 0
+// // Logging value: 1
+// // Logging value: 2
+
+//! Функція вищого порядку(higher order function)
+//TODO Функція вищого порядку - це функція, яка володіє як мінімум однією з наступних можливостей:
+//* - Вона здатна приймати інші функції в якості аргументів.
+//* - Вона може повертати функцію у вигляді результатів своєї роботи.
+// Використання функцій вищого порядку дозволяє підвищити гнучкість коду, допомагаючи писати компактніші та ефективніші програми.
+
+// EXT1
+// Припустимо, є масив цілих чисел.Потрібно створити на його основі новий масив тієї ж довжини, але такий,
+// кожен елемент якого буде представляти результат множення відповідного елемента вихідного масиву на 2.
+
+// Якщо не користуватися можливостями функцій вищого порядку, то рішення цього завдання може виглядати так:
+// const arr1 = [1, 2, 3];
+// const arr2 = [];
+// // Класичний for
+// for (let i = 0; i < arr1.length; i++) {
+//     arr2.push(arr1[i] * 2);
+// }
+// // Метод перебирання forEach
+// arr1.forEach(function (number) {
+//     arr2.push(number * 2);
+// });
+
+// console.log(arr1);
+// console.log(arr2);
+
+//TODO Реалізація через map()
+//* Якщо ж над завданням подумати, то виявиться, що у об'єктів типу Array в JavaScript є метод map().
+//* Цей метод викликають у вигляді map(callback).Він створює новий масив, заповнений елементами масиву, для якого його викликають,
+//* обробленими за допомогою переданої йому функції callback.
+
+//? Ось як виглядає рішення цього завдання з використанням методу map():
+const arr1 = [1, 2, 3];
+const arr2 = arr1.map(function(item) {
+  return item * 2;
+});
+console.log(arr2);
